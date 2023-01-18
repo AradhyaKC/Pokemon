@@ -12,11 +12,11 @@ export default function Pokemon(props:any){
             method:'GET',mode:'cors'
         });
         response = await response.json();
-        console.log(response);
+        // console.log(response);
     }
 
     var {data,status} = useQuery('hello',fetchFunc);
-    console.log(data);
+    // console.log(data);
     return (
     <div className="min-h-[100vh] flex flex-col bg-gradient-to-br from-cyan-500 to-blue-800 items-center justify-center p-4">
         {/* Pokemon container  */}
