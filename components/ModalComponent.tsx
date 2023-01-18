@@ -5,10 +5,18 @@ import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 import pikachu  from "../public/pikachu.png";
 import { TextFieldProps } from "@material-ui/core/TextField";
+import { trpc } from "@/utils/trpc";
 
 export default function ModalComponent(props:any){
     const [show,setShow]=useState(()=>{ return false;});
     const [displayImageUrl, setDisplayImageUrl] = useState(pikachu.src);
+    
+    useEffect(()=>{
+        (async()=>{
+            var response = await trpc.greeting.query({name:'John Doeee'});
+            console.log(response);
+        })();
+    },[]); 
 
     const onChangeProfilePic =(e)=>{
         e.preventDefault();
