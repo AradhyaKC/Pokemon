@@ -11,12 +11,6 @@ export default function ModalComponent(props:any){
     const [show,setShow]=useState(()=>{ return false;});
     const [displayImageUrl, setDisplayImageUrl] = useState(pikachu.src);
     
-    useEffect(()=>{
-        (async()=>{
-            var response = await trpc.greeting.query({name:'John Doeee'});
-            console.log(response);
-        })();
-    },[]); 
 
     const onChangeProfilePic =(e)=>{
         e.preventDefault();

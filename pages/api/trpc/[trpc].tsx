@@ -8,16 +8,15 @@ const router = t.router;
  
 export const appRouter = router({
     greeting:t.procedure
-    .input(z.object({
-        name:z.string()
-    }))
     .query((req)=>{
         var input = req.input;
         console.log(req);
         return {
-            msg:'Hello from ' +input.name,
+            msg:'Hello ! maybe this get req will work',
         }
     })
+    // .input(z.object({name:z.string()})),
+
 });
  
 // Export type router type signature,
