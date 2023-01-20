@@ -15,6 +15,7 @@ export default function ModalComponent(props:any){
         var formData = new FormData(document.getElementById('pokemon-form') as HTMLFormElement);
         var pokemon = await trpc.createPokemon.mutate({name:formData.get('name')as string,pokemonImg:displayImageUrl});
         // console.log(pokemon);
+        //@ts-ignore
         return pokemon.pokemon;
     }
 
@@ -29,7 +30,7 @@ export default function ModalComponent(props:any){
     });
 
 
-    const onChangeProfilePic =(e)=>{
+    const onChangeProfilePic =(e:any)=>{
         e.preventDefault();
         console.log('workd');
         var reader =new FileReader();
