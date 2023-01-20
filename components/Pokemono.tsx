@@ -13,6 +13,7 @@ export default function Pokemono(props:any){
     const queryClient = useQueryClient();
     const getPokemon=async()=>{
         var pokemon = await trpc.getPokemon.query({_id:props._id});
+        //@ts-ignore
         pokemon=pokemon.pokemon;
         return pokemon;
     }
@@ -43,7 +44,9 @@ export default function Pokemono(props:any){
         {data!=undefined && <div onClick={()=>{deleteResult.mutate();}} className="cursor-pointer absolute top-0.5 right-0.5 w-4 h-4 sm:w-7 sm:h-7 bg-red-500 flex justify-center items-center">
             <ImCross style={{width:'90%',height:'90%'}}/>
         </div>}
+        {/* @ts-ignore */}
         {data!=undefined && <Image src={{src:data.pokemonImg,width:1377,height:1477}} alt='pikachu' className="m-1 w-12 h-12 sm:w-24 sm:h-24"/>}
+        {/* @ts-ignore */}
         {data!=undefined && <div className="text-black font-thin text-sm sm:text-lg">{data.name}</div>}
         { status=='loading' && <div className="animate-pulse bg-slate-400 w-12 h-12 sm:w-24 sm:h-24 rounded-full m-1"></div>}
         {status=='loading' && <div className="animate-pulse bg-slate-400 w-full h-6"> </div>}
