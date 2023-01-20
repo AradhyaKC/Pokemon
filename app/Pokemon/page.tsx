@@ -2,21 +2,24 @@
 
 import ModalComponent from "@/components/ModalComponent";
 import Pokemono from "@/components/Pokemono";
+import { trpc } from "@/utils/trpc";
 import {useEffect} from 'react';
-import { useQuery } from "react-query";
+import { useQuery, UseQueryResult } from "react-query";
 
 export default function Pokemon(props:any){   
     
-    // const fetchFunc =async()=>{
-    //     var response = await fetch('http://localhost:3000/api/trpc/greeting',{
-    //         method:'GET',mode:'cors'
-    //     });
-    //     response = await response.json();
-    //     // console.log(response);
-    // }
+    const getAllPokemonId=async()=>{
+        var response =await trpc.getAllPokemonId.query();
+        // console.log(response);
+        //@ts-ignore
+        return response;
+    }
+    const {status,error,data}:UseQueryResult = useQuery({
+        queryKey:'pokemons',
+        queryFn:getAllPokemonId,
+    });
 
-    // var {data,status} = useQuery('hello',fetchFunc);
-    // console.log(data);
+    // if(status!='loading') console.log(data);
     return (
     <div className="min-h-[100vh] flex flex-col bg-gradient-to-br from-cyan-500 to-blue-800 items-center justify-center p-4">
         {/* Pokemon container  */}
@@ -26,6 +29,12 @@ export default function Pokemon(props:any){
                 Existing Pokemon
             </div>
             <div className="bg-transparent mt-4"> 
+                {status=='success' && data.map((element,index)=>{
+                    return <Pokemono key={index} _id={element._id} />
+                })}
+                {status=='loading' && <div> Loading</div>}
+                {/* <Pokemono _id='63ca2b136968e641309e00a2'/> */}
+                {/* <Pokemono/>
                 <Pokemono/>
                 <Pokemono/>
                 <Pokemono/>
@@ -42,11 +51,9 @@ export default function Pokemon(props:any){
                 <Pokemono/>
                 <Pokemono/>
                 <Pokemono/>
-                <Pokemono/>
-                <Pokemono/>
-                <Pokemono/>
+                <Pokemono/> */}
             </div>
-            <ModalComponent label='Add Pokemon'/>
         </div>
+            <ModalComponent label='Add Pokemon'/>
     </div>);
 }

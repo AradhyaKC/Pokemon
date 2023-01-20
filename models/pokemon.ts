@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 const pokemonSchema = new mongoose.Schema({
-    name:{type:String, required:true}
+    name:{type:String, required:true},
+    pokemonImg:{type:String}
 });
 
 // @ts-ignore
