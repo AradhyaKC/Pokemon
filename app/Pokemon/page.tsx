@@ -30,6 +30,7 @@ export default function Pokemon(props:any){
                 Existing Pokemon
             </div>
             <div className="bg-transparent mt-4"> 
+                {/* @ts-ignore */}
                 {status=='success' && data.map((element,index)=>{
                     return <Pokemono key={index} _id={element._id} />
                 })}
