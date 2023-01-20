@@ -1,5 +1,4 @@
 import './globals.css';
-import '../utils/mongooseConnect';
 
 export default function RootLayout({
   children,
