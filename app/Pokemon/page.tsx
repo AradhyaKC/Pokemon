@@ -5,6 +5,7 @@ import Pokemono from "@/components/Pokemono";
 import { trpc } from "@/utils/trpc";
 import {useEffect} from 'react';
 import { useQuery, UseQueryResult } from "react-query";
+import {AiOutlineLoading} from 'react-icons/ai';
 
 export default function Pokemon(props:any){   
     
@@ -32,7 +33,7 @@ export default function Pokemon(props:any){
                 {status=='success' && data.map((element,index)=>{
                     return <Pokemono key={index} _id={element._id} />
                 })}
-                {status=='loading' && <div> Loading</div>}
+                {status=='loading' && <div> <AiOutlineLoading className="w-8 h-8 animate-spin text-blue-700"/></div>}
                 {/* <Pokemono _id='63ca2b136968e641309e00a2'/> */}
                 {/* <Pokemono/>
                 <Pokemono/>

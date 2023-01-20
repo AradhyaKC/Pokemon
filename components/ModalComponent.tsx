@@ -13,22 +13,11 @@ export default function ModalComponent(props:any){
     
     const createPokemon=async()=>{
         var formData = new FormData(document.getElementById('pokemon-form') as HTMLFormElement);
-        // console.log(formData.get('pokemonImg'));
-        var file:File = formData.get('pokemonImg') as File;
-        
-        // console.log(displayImageUrl);
-        var response = await fetch('http://localhost:3000/api/trpc/createPokemon',{
-            method:"POST",body:JSON.stringify({name:formData.get('name'),pokemonImg:displayImageUrl as string}),mode:'cors',
-        });
-        response = await response.json();
-        // console.log(response);
-        //@ts-ignore
-        if(response.error==undefined)   return response.result.data.pokemon;
-        else {
-            throw 'createPokemon failed';
-            return {};
-        }
+        var pokemon = await trpc.createPokemon.mutate({name:formData.get('name')as string,pokemonImg:displayImageUrl});
+        // console.log(pokemon);
+        return pokemon.pokemon;
     }
+
 
     const {status ,error, mutate} = useMutation({
         mutationFn:createPokemon,
@@ -60,14 +49,14 @@ export default function ModalComponent(props:any){
     }
     const onPokemonSubmit=async(e:MouseEvent)=>{
         await mutate();
-        e.target.value='';
+        // e.target.value='';
     }
 
     
     return (
     <div>
         <div className=" cursor-pointer bg-transparent border border-white hover:bg-white text-white hover:text-blue-700
-            w-fit self-center mt-2 text-lg sm:text-2xl p-1 rounded-md" onClick={toggleShow}>
+            w-fit self-center mt-2 text-lg sm:text-2xl p-2 rounded-md" onClick={toggleShow}>
                 {props.label}
         </div>
         <div className={`flex justify-center fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full ${!show?'hidden':''}`}
